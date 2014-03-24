@@ -9,7 +9,7 @@ if (enemies.length === 0) return;  // Chill if all enemies are dead.
 var enemy = this.getNearest(enemies);
 var friend = this.getNearest(friends);
 if (typeof this.terrifyTimer === 'undefined')
-    this.terrifyTimer=0;
+    this.terrifyTimer=-5;
 
 // Which one do you do at any given time? Only the last called action happens.
 this.attack(enemy);
@@ -34,7 +34,7 @@ if(hero!==null){
     }
 }
 else{
-    hero=this.findType(enemies, 'brawler');
+    //hero=this.findType(enemies, 'brawler');
 }
 
 if(nearAnEnemy) {
@@ -49,13 +49,18 @@ if(!this.getCooldown('warcry')){
     }
 }
 
+if(friends.length<5){
+   //this.say("Regroup!", {targetPos: {x: 10, y: 30}});
+   this.move({x: 10, y: 30});
+}
+
 if((this.now()-this.terrifyTimer)<5){
     if(hero!==null){
         this.attack(hero);
     }
 }
 
-if(!this.getCooldown('terrify') && this.health<100){
+if(!this.getCooldown('terrify') && this.health<150){
     this.terrifyTimer=this.now();
     this.terrify();
 }
